@@ -1,0 +1,60 @@
+#张量(tensor)
+from __future__ import print_function
+import torch
+x=torch.empty(5,3)
+print(x)
+x=torch.rand(5,3)
+print(x)
+x=torch.zeros(5,3,dtype=torch.long)
+print(x)
+x=torch.tensor([5.5,3])
+print(x)
+x=x.new_ones(5,3,dtype=torch.double)
+print(x)
+x=torch.randn_like(x,dtype=torch.float)
+print(x)
+print(x.size())
+###运算
+##加法运算
+#加法形式1
+y=torch.rand(5,3)
+print(x+y)
+#加法形式2
+print(torch.add(x,y))
+#给定一个输出张量作为参数
+result=torch.rand(5,3)
+torch.add(x,y,out=result)
+print(result)
+#原位/原地操作(In-place)
+# adds x to y
+y.add_(x)
+print(y)
+#也可类比numpy
+print(x[:,1])
+x=torch.randn(4,4)
+y=x.view(16)
+z=x.view(-1,8)
+#-1是一个占位符
+print(x.size(),y.size(),z.size())
+x=torch.randn(1)
+print(x)
+print(x.item())
+##桥接Numpy
+#将torch的Tensor转化为Numpy数组
+a = torch.ones(5)
+print(a)
+b=a.numpy()
+print(b)
+a.add_(1)
+print(a)
+print(b)
+##将Numpy数组转化为Torch张量
+#看改变NumPy数组是如何自动改变Torch张量的
+import numpy as np
+a=np.ones(5)
+b=torch.from_numpy(a)
+np.add(a,1,out=a)
+print(a)
+print(b)
+#CPU上的所有张量(CharTensor除外)都支持与Numpy的相互转换
+##CUDA
